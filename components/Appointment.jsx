@@ -5,11 +5,17 @@ import styled from 'styled-components/native';
 const Group = ({ user, diagnosis, active, time }) => {
   return (
     <GroupItem>
-      <Avatar
-        source={{
-          uri: user.avatar,
-        }}
-      />
+      {user.avatar !== '' && user.avatar !== undefined ? (
+        <Avatar
+          source={{
+            uri: user.avatar,
+          }}
+        />
+      ) : (
+        <Plug>
+          <PlugText>{user.fullname[0].toUpperCase()}</PlugText>
+        </Plug>
+      )}
       <PatientInfo>
         <FullName>{user.fullname}</FullName>
         <Diagnosis>{diagnosis}</Diagnosis>
@@ -38,6 +44,21 @@ const Avatar = styled.Image`
   width: 43px;
   height: 43px;
   margin-right: 15px;
+`;
+
+const Plug = styled.View`
+  border-radius: 50px;
+  width: 43px;
+  height: 43px;
+  margin-right: 15px;
+  align-items: center;
+  justify-content: center;
+  background: #ffe49c;
+`;
+
+const PlugText = styled.Text`
+  font-size: 21px;
+  color: #000;
 `;
 
 const FullName = styled.Text`
