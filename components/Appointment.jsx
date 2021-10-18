@@ -2,9 +2,9 @@ import React from 'react';
 
 import styled from 'styled-components/native';
 
-const Group = ({ user, diagnosis, active, time }) => {
+const Group = ({ user, diagnosis, active, time, navigate }) => {
   return (
-    <GroupItem>
+    <GroupItem onPress={navigate.bind(this, 'Patient')}>
       {user.avatar !== '' && user.avatar !== undefined ? (
         <Avatar
           source={{
@@ -74,7 +74,7 @@ const Diagnosis = styled.Text`
 
 const GroupDate = styled.Text`
   border-radius: 18px;
-  background: ${(props) => (props.active ? '#2a86ff' : '#e9f5ff')};
+  background: ${(props) => (props.active ? '#2a86ff' : '#fff')};
   color: ${(props) => (props.active ? '#fff' : '#4294ff')};
   font-weight: bold;
   font-size: 14px;
