@@ -6,7 +6,7 @@ import styled from 'styled-components/native';
 
 import { Appointment, SectionTitle } from '../components';
 
-const DATA = [
+const Data = [
   {
     title: '11 сентября',
     data: [
@@ -119,8 +119,8 @@ export default function HomeScreen({ navigation }) {
   return (
     <Container>
       <SectionList
-        sections={DATA}
-        keyExtractor={(name, index) => name + index}
+        sections={Data}
+        keyExtractor={(name, index) => `${name}_${index}`}
         renderItem={({ item }) => <Appointment navigate={navigation.navigate} item={item} />}
         renderSectionHeader={({ section: { title } }) => <SectionTitle>{title}</SectionTitle>}
       />
