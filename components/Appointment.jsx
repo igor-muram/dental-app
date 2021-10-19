@@ -1,11 +1,16 @@
 import React from 'react';
 
+import GrayText from './GrayText';
+import Badge from './Badge';
+
 import styled from 'styled-components/native';
 
-const Group = ({ user, diagnosis, active, time, navigate }) => {
+const Appointment = ({ navigate, item }) => {
+  const { user, diagnosis, active, time } = item;
+
   return (
-    <GroupItem onPress={navigate.bind(this, 'Patient')}>
-      {user.avatar !== '' && user.avatar !== undefined ? (
+    <AppointmentItem onPress={navigate.bind(this, 'Patient', item)}>
+      {user.avatar && user.avatar !== '' ? (
         <Avatar
           source={{
             uri: user.avatar,
@@ -18,16 +23,16 @@ const Group = ({ user, diagnosis, active, time, navigate }) => {
       )}
       <PatientInfo>
         <FullName>{user.fullname}</FullName>
-        <Diagnosis>{diagnosis}</Diagnosis>
+        <GrayText>{diagnosis}</GrayText>
       </PatientInfo>
-      <GroupDate active={active}>{time}</GroupDate>
-    </GroupItem>
+      <Badge active={active}>{time}</Badge>
+    </AppointmentItem>
   );
 };
 
-export default Group;
+export default Appointment;
 
-const GroupItem = styled.TouchableOpacity`
+const AppointmentItem = styled.TouchableOpacity`
   align-items: center;
   flex-direction: row;
   padding: 20px;
@@ -65,21 +70,4 @@ const FullName = styled.Text`
   font-size: 15px;
   font-weight: bold;
   margin-bottom: 2px;
-`;
-
-const Diagnosis = styled.Text`
-  font-size: 15px;
-  color: #8b979f;
-`;
-
-const GroupDate = styled.Text`
-  border-radius: 18px;
-  background: ${(props) => (props.active ? '#2a86ff' : '#fff')};
-  color: ${(props) => (props.active ? '#fff' : '#4294ff')};
-  font-weight: bold;
-  font-size: 14px;
-  width: 55px;
-  height: 32px;
-  text-align: center;
-  line-height: 32px;
 `;
