@@ -1,10 +1,28 @@
 import React from 'react';
 
-import { GrayText, Button, Badge } from '../components';
-import { Foundation, FontAwesome5 } from '@expo/vector-icons';
+import { GrayText, Button, AppointmentCard } from '../components';
+import { Foundation } from '@expo/vector-icons';
 
 import styled from 'styled-components/native';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+
+const cards = [
+  {
+    id: 1,
+    tooth: 12,
+    price: 1500,
+  },
+  {
+    id: 2,
+    tooth: 15,
+    price: 1100,
+  },
+  {
+    id: 3,
+    tooth: 18,
+    price: 1700,
+  },
+];
 
 export default function PatientScreen({ navigation }) {
   return (
@@ -26,63 +44,18 @@ export default function PatientScreen({ navigation }) {
       </MainInfo>
 
       <PatientAppointments>
-        <AppointmentCard>
-          <AppointmentCardRow>
-            <FontAwesome5 name="tooth" size={16} color="#a3a3a3" />
-            <AppointmentCardLabel>
-              Зуб: <Text style={{ fontWeight: 'bold' }}>12</Text>
-            </AppointmentCardLabel>
-          </AppointmentCardRow>
-
-          <AppointmentCardRow>
-            <Foundation
-              name="clipboard-notes"
-              size={16}
-              style={{ marginLeft: 2 }}
-              color="#a3a3a3"
-            />
-            <AppointmentCardLabel>
-              Диагноз:{' '}
-              <Text style={{ fontWeight: 'bold' }}>{navigation.getParam('diagnosis')}</Text>
-            </AppointmentCardLabel>
-          </AppointmentCardRow>
-
-          <AppointmentCardRow style={{ justifyContent: 'space-between', marginTop: 15 }}>
-            <Badge style={{ width: 175 }} active>
-              {navigation.getParam('time')}
-            </Badge>
-            <Badge style={{ width: 70 }} color="green">
-              1500 Р
-            </Badge>
-          </AppointmentCardRow>
-        </AppointmentCard>
+        {cards.map((card) => (
+          <AppointmentCard
+            key={card.id}
+            {...card}
+            diagnosis={navigation.getParam('diagnosis')}
+            time={navigation.getParam('time')}
+          />
+        ))}
       </PatientAppointments>
     </View>
   );
 }
-
-const AppointmentCardLabel = styled.Text`
-  font-size: 16px;
-  margin-left: 10px;
-`;
-
-const AppointmentCardRow = styled.View`
-  flex-direction: row;
-  align-items: center;
-  margin-top: 4px;
-  margin-bottom: 4px;
-`;
-
-const AppointmentCard = styled.View`
-  shadow-color: black;
-  elevation: 4;
-  shadow-opacity: 0.4;
-  shadow-radius: 5;
-  padding: 20px;
-  border-radius: 10px;
-  background: white;
-  margin-bottom: 15px;
-`;
 
 const ConditionButtonView = styled.View`
   flex: 1;
